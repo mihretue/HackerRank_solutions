@@ -1,41 +1,31 @@
 def print_formatted(number):
-    width = len(bin(number)) - 2  # Calculate the width for formatting
+    # Calculate the width for formatting
+    width = len(bin(number)) - 2
     
     for i in range(1, number + 1):
         # Decimal
         decimal_val = str(i)
         
         # Octal
-        if i < 8:
-            octal_val = str(i)
-        else:    
-            result = i // 8
-            remainder = i % 8
-            if result == 0:
-                octal_val = str(remainder)
-            else:    
-                octal_val = str(result) + str(remainder)
+        result = ""
+        n = i
+        while n > 0:
+            result = str(n % 8) + result
+            n = n // 8
+        octal_val = result
         
         # Hexadecimal
-        if i <= 9:
-            hex_val = str(i)
-        else:
-            dic = "123456789ABCDEF"
-            result = i // 16
-            remainder = i % 16
-            if result == 0:
-                hex_val = dic[remainder - 1]
-            elif remainder == 0:
-                hex_val = dic[result - 1] + '0'
-            else:
-                hex_val = dic[result - 1] + dic[remainder - 1]
+        dic = "0123456789ABCDEF"
+        result = ""
+        n = i
+        while n > 0:
+            result = dic[n % 16] + result
+            n = n // 16
+        hex_val = result
         
         # Binary
         binary_number = ""
         temp = i
-        if temp == 0:  # Special case for 0
-            binary_number = '0'
-        
         while temp > 0:
             if temp % 2 == 0:
                 binary_number = '0' + binary_number
